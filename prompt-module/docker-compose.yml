@@ -1,0 +1,41 @@
+services:
+  # 실제 모델 구동 (GPU 필요): docker compose --profile gpu up --build
+  prompt-module:
+    profiles: ["gpu"]
+    build: .
+    image: prompt-module:latest
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - /home/.cache/huggingface/hub:/models          # HuggingFace 캐시 (재다운로드 방지)
+      - /home/ETRI/TANGO2/LLMOps/Evaluation/Prompt_Optimization/prompt_optimization_BPO/models:/adapters      # optimizer LoRA 어댑터 / 파인튜닝 가중치
+      - ./templates:/app/templates  # 템플릿 수정 시 재빌드 불필요
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              #count: all
+              device_ids: ["3"]
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 600s
+    restart: unless-stopped
+
+  # 모델 없이 API/파이프라인 동작만 확인: docker compose --profile mock up --build
+  prompt-module-mock:
+    profiles: ["mock"]
+    build: .
+    image: prompt-module:latest
+    environment:
+      PM_GENERATOR_BACKEND: mock
+      PM_OPTIMIZER_BACKEND: mock
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./templates:/app/templates

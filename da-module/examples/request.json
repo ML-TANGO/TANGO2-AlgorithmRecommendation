@@ -1,0 +1,21 @@
+{
+  "po_request_id": "po-demo-1",
+  "optimized_prompt": "충돌 위험을 있음 / 없음 중 하나로 표시하고, 자선 상황을 한국어 3~5문장으로 서술하세요.",
+  "raw_data": {
+    "ship_id": "S01",
+    "my_ship": 1,
+    "latitude": 35.05,
+    "longitude": 129.07,
+    "knot": 12.0,
+    "heading": 45,
+    "nearby_ships": [
+      {
+        "ship_id": "S02",
+        "relative_bearing": "우현",
+        "distance_nm": 0.8,
+        "knot": 9.5,
+        "heading": 315
+      }
+    ]
+  }
+}

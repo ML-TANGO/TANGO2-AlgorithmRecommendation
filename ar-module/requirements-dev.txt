@@ -1,0 +1,4 @@
+# Data pipeline extras and tests. Stage 1-4/revision generation needs only the standard library,
+# except the lexical diversity report (numpy) and the demo API tests (httpx for fastapi TestClient).
+numpy>=1.26
+httpx>=0.27

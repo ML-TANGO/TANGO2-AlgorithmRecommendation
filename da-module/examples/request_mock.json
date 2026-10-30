@@ -1,0 +1,5 @@
+{
+  "po_request_id": "po-demo-mock",
+  "optimized_prompt": "입력 문자열 한 건에 label과 reasoning 문자열이 필수인 JSON 객체를 출력하세요.",
+  "raw_data": "연결 테스트"
+}

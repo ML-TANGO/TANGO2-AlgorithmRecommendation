@@ -1,0 +1,37 @@
+{
+  "task_description": "해상상황묘사: 해상 이미지와 선박 센서값(자선 및 주변 선박의 제원, 위치, 속력, 선수 방위, 이미지 내 바운딩 박스)이 주어졌을 때, 자선이 현재 어떤 상황에 있는지를 자연어로 서술한다.",
+  "requirements": "한국어로 3~5문장으로 서술한다. 자선의 위치, 속력, 진행 방향을 먼저 기술하고, 주변 선박 각각에 대해 자선 기준 상대 방위와 대략적인 거리, 진행 방향 관계(접근, 이격, 교차 등)를 기술한다. 충돌 위험이 있는 선박이 있으면 이를 명시한다. 센서값과 이미지에서 확인할 수 없는 정보(선종, 기상, 선박명 등)는 추측하지 않는다. 수치는 센서값과 일치해야 한다.",
+  "data_format": "image + csv",
+  "data_schema": {
+    "image": "해상 카메라 이미지 1장 (jpg/png). 자선(my_ship=1)의 카메라에서 촬영한 장면이며, 주변 선박이 bbox로 표시된다. 텍스트 모델에는 이미지가 직접 입력되지 않는다. 이미지는 수정할 수 없으므로 센서값과 bbox는 항상 원본 이미지와 일치해야 한다.",
+    "sensor": {
+      "설명": "csv 표. 한 행이 선박 1척이며, 자선 1행과 이미지에서 탐지된 주변 선박 여러 행으로 구성된다.",
+      "columns": {
+        "my_ship": "int, 자선이면 1, 주변 선박이면 0",
+        "ship_id": "string, 선박 식별자",
+        "length": "float, 선박 길이 (m)",
+        "width": "float, 선박 폭 (m)",
+        "draft": "float, 흘수 (m)",
+        "latitude": "float, 위도 (도)",
+        "longitude": "float, 경도 (도)",
+        "knot": "float, 속력 (knot)",
+        "heading": "float, 선수 방위 (도, 진북 기준 0~360)",
+        "bbox_x": "int, 이미지 내 바운딩 박스 좌상단 x (px)",
+        "bbox_y": "int, 이미지 내 바운딩 박스 좌상단 y (px)",
+        "bbox_width": "int, 바운딩 박스 폭 (px)",
+        "bbox_height": "int, 바운딩 박스 높이 (px)"
+      },
+      "example_rows": [
+        "my_ship,ship_id,length,width,draft,latitude,longitude,knot,heading,bbox_x,bbox_y,bbox_width,bbox_height",
+        "1,OWN-001,120.0,20.0,7.5,35.0812,129.0754,12.0,45.0,,,,",
+        "0,TGT-017,85.0,14.0,5.2,35.0921,129.0868,9.5,230.0,612,288,140,52"
+      ]
+    }
+  },
+  "prompt_objective": "주어진 태스크와 데이터로 모델을 학습시키기 위한 인스트럭션을 만들어야 해. 생성된 인스트럭션은 각 학습 샘플의 입력 데이터 앞에 붙어, 모델이 입력 데이터를 보고 태스크 요구사항에 맞는 출력을 내도록 해야 해.",
+  "options": {
+    "use_candidate_selection": true,
+    "num_candidates": 4,
+    "confidence_method": "logprob"
+  }
+}

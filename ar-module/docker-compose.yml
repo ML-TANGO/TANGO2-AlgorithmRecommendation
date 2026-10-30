@@ -1,0 +1,27 @@
+services:
+  # Web demo with the bundled checkpoint (GPU required): docker compose --profile gpu up --build
+  algorithm-recommend-demo:
+    profiles: ["gpu"]
+    build: .
+    image: algorithm-recommend:latest
+    env_file: .env
+    ports:
+      - "${DEMO_PORT:-8004}:8004"   # 호스트 포트는 .env 의 DEMO_PORT, 컨테이너 안은 8004 고정
+    volumes:
+      - ${HF_CACHE:-~/.cache/huggingface/hub}:/models/hf/hub   # base model cache (google/gemma-4-E4B-it)
+      - ./checkpoints:/app/checkpoints                          # trained adapters
+      - ./artifacts:/app/artifacts                              # inference results / logs
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${AR_GPU_ID:-0}"]   # .env 의 AR_GPU_ID 로 지정 (호스트 GPU 번호)
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8004/api/status')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 300s
+    restart: unless-stopped

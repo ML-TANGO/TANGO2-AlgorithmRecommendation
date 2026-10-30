@@ -1,0 +1,5 @@
+{
+  "po_request_id": "po-demo-entities",
+  "optimized_prompt": "문장에서 사람, 장소, 조직 개체를 추출하세요. 각 개체는 text와 type 필드를 갖는 객체이며, type은 PERSON, LOCATION, ORGANIZATION 중 하나입니다. 원문에 없는 개체는 만들지 말고 개체 객체들의 JSON 배열로 출력하세요.",
+  "raw_data": "김민수는 서울에서 삼성전자에 입사했다."
+}

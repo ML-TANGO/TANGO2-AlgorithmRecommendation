@@ -1,0 +1,11 @@
+.env
+.venv/
+.git/
+__pycache__/
+*.pyc
+.pytest_cache/
+models/
+tests/
+docs/
+examples/po_to_da.py
+examples/po_request.json

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6654F0">
+  <title>TANGO2 Requirement-Driven LLM 모델 : 알고리즘 추천 모듈</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%236654F0'/%3E%3Cpath d='M10 12h20v5h-7v13h-6V17h-7' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="TANGO2 홈"><span class="brand-icon" aria-hidden="true">T<span>2</span></span><span>TANGO2<span class="brand-caption">INTELLIGENT MODEL SELECTION</span></span></a>
+      <div class="version"><span class="dot"></span><span id="version-label">버전 확인 중</span></div>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <span class="eyebrow">REQUIREMENTS IN. RECOMMENDATIONS OUT.</span>
+        <h1 id="page-title">TANGO2 Requirement-Driven LLM 모델 :<br class="desktop-break"> 알고리즘 추천 모듈</h1>
+        <p>하려는 일과 사용 환경을 알려 주세요.<br class="mobile-break"> 요구사항에 맞는 모델과 학습 구성을 함께 찾아드립니다.</p>
+      </section>
+      <div class="workspace">
+        <section class="panel input-panel" aria-labelledby="input-title">
+          <div class="panel-header"><div><span class="section-index">01 / INPUT</span><h2 id="input-title">요구사항 입력</h2></div><span class="mini-icon" aria-hidden="true">↗</span></div>
+          <form id="request-form">
+            <div class="field">
+              <div class="label-line"><label for="task-description">사용자 작업 설명</label><span id="task-count">0 / 20,000</span></div>
+              <p class="field-hint" id="task-help">어떤 작업을 위해 모델을 학습하고 싶은지 설명해 주세요.</p>
+              <textarea id="task-description" name="task_description" required maxlength="20000" aria-describedby="task-help" placeholder="한국어 보고서의 핵심 내용을 요약하는 모델을 학습하고 싶어요. 적합한 모델과 학습 방법을 추천해 주세요."></textarea>
+              <span class="field-key">USER_TASK_DESCRIPTION</span>
+            </div>
+            <div class="field requirements-field">
+              <div class="label-line"><label for="requirements">사용자 요구사항</label><span id="requirements-count">0 / 20,000</span></div>
+              <p class="field-hint" id="requirements-help">GPU, 언어, 처리할 분량 등 필요한 조건을 자유롭게 적어 주세요.</p>
+              <textarea id="requirements" name="requirements" required maxlength="20000" aria-describedby="requirements-help" placeholder="5090 그래픽 카드 한 장을 사용합니다. 한국어 보고서는 5페이지 정도이고, 주요 내용을 간결하게 정리하고 싶어요."></textarea>
+              <span class="field-key">USER_REQUIREMENTS</span>
+            </div>
+            <div class="examples"><span>이렇게 시작해 보세요</span><button type="button" class="example" data-example="summary">문서 요약</button><button type="button" class="example" data-example="vision">이미지 분류</button><button type="button" class="example" data-example="audio">음성 인식</button></div>
+            <div id="input-notice" class="notice" role="status" hidden></div>
+            <button id="submit-button" class="primary" type="submit"><span id="submit-label">추천 생성하기</span><span aria-hidden="true">↗</span></button>
+            <div class="form-footer"><span id="connection-label"><span class="dot"></span>서버 확인 중</span><button id="clear-button" type="button">입력 지우기</button></div>
+          </form>
+        </section>
+        <section class="panel result-panel" aria-labelledby="result-title">
+          <div class="panel-header"><div><span class="section-index">02 / OUTPUT</span><h2 id="result-title">맞춤 추천 결과</h2></div><span class="result-badge" id="result-badge">입력 대기</span></div>
+          <div id="empty-state" class="empty-state">
+            <div class="illustration" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="satellite sat-one">✧</span><span class="satellite sat-two">↗</span><div class="model-symbol"><svg width="44" height="44" viewBox="0 0 44 44" fill="none"><path d="m22 5 16 9-16 9-16-9 16-9Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="m6 22 16 9 16-9M6 30l16 9 16-9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+            <h3>당신의 요구사항이<br>추천의 시작입니다.</h3><p>왼쪽에 작업과 환경을 입력하면<br>모델부터 학습 설정까지 한눈에 확인할 수 있어요.</p>
+            <div class="preview-tags"><span>모델</span><span>학습 알고리즘</span><span>평가지표</span><span>하이퍼파라미터</span></div>
+          </div>
+          <div id="loading-state" class="loading-state" role="status" aria-live="polite" hidden><div class="spinner"></div><h3 id="loading-title">요구사항을 전달하고 있습니다</h3><p id="loading-message">학습된 추천 모델로 추천을 준비합니다.</p><span id="elapsed-time">0초 경과</span></div>
+          <div id="error-state" class="error-state" role="alert" hidden><span class="error-mark">!</span><h3>추천을 완료하지 못했습니다</h3><p id="error-message"></p><button type="button" id="retry-button" class="secondary">다시 시도</button></div>
+          <div id="completed-state" hidden>
+            <div class="result-tools"><div class="tabs" role="tablist" aria-label="결과 보기"><button id="summary-tab" role="tab" aria-selected="true" aria-controls="summary-view" type="button">추천 요약</button><button id="json-tab" role="tab" aria-selected="false" aria-controls="json-view" type="button">전체 JSON</button></div><a id="download-button" class="download" href="#" download>JSON 저장 ↓</a></div>
+            <div id="response-errors" class="notice error-notice" hidden></div>
+            <div id="summary-view" role="tabpanel" aria-labelledby="summary-tab"><div class="model-card"><span>추천 모델</span><h3 id="model-name"></h3><p id="model-reason"></p></div><div class="metric-grid"><div><span>학습 알고리즘</span><strong id="algorithm"></strong></div><div><span>평가지표</span><strong id="metric"></strong></div></div><div class="thinking-box"><div><span>Thinking 모델 / 모드</span><strong id="thinking-state"></strong></div><p id="thinking-reason"></p></div><div id="detail-sections"></div><p class="result-note" id="result-note"></p></div>
+            <div id="json-view" role="tabpanel" aria-labelledby="json-tab" hidden><button type="button" id="copy-button" class="copy">JSON 복사</button><pre id="json-output"></pre></div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="page-footer"><span>TANGO2 <span class="footer-divider">/</span> Requirement-Driven Intelligence</span><span>입력에서 선택까지, 하나의 흐름으로.</span></footer>
+  </div>
+</body>
+</html>

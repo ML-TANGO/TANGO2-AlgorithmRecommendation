@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+models/
+
+# Local-only material, not part of the release
+docs/
+README_full.md
+CLAUDE.md
+
+# Test and demo-client code, not part of the release
+tests/
+requirements-dev.txt
+examples/po_to_da.py
+examples/po_request.json

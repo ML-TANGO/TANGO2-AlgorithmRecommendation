@@ -1,0 +1,28 @@
+You wrote candidate prompts for a downstream module. Estimate how confident you are that an LLM following this candidate prompt will achieve the objective below and produce output that satisfies every user requirement.
+
+# Objective of the prompt
+{{ prompt_objective }}
+
+# User task
+{{ task_description }}
+
+# User requirements
+{{ requirements }}
+
+# Data format
+{{ data_format }}
+
+# Data schema
+{{ data_schema }}
+{% if data_label %}
+
+# Labels
+{{ data_label }}
+{% endif %}
+
+# Candidate prompt
+<prompt>
+{{ candidate_prompt }}
+</prompt>
+
+Answer with a single integer from 0 to 100 in the form "Score: <number>" and nothing else.

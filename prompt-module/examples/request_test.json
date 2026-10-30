@@ -1,0 +1,14 @@
+{
+  "task_description": "I want to train a model that summarizes the key points of Korean reports. Please recommend a suitable model and training method.",
+  "requirements": "The environment has an RTX 5090 graphics card, and each report is about 5 pages long.",
+  "data_format": "text",
+  "data_schema": {
+    "report": "One Korean report body (plain text, about 5 pages long)"
+  },
+  "prompt_objective": "Create a data augmentation prompt suited to the given task and data. The generated prompt should take one data sample as input and generate a new sample that follows the task description, requirements, data format, and schema.",
+  "options": {
+    "use_candidate_selection": true,
+    "num_candidates": 4,
+    "confidence_method": "logprob"
+  }
+}

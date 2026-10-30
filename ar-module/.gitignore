@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+artifacts/
+.env
+*.log
+checkpoints/

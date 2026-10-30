@@ -1,0 +1,10 @@
+{
+  "po_request_id": "po-demo-review",
+  "optimized_prompt": "상품 리뷰를 읽고 감성을 positive, neutral, negative 중 하나로 분류하세요. review_text를 주된 근거로 판단하고, 별점과 본문이 충돌하면 본문을 우선하세요. 라벨은 label 필드에, 한 문장의 한국어 판단 근거는 reasoning 필드에 담아 JSON으로 출력하세요.",
+  "raw_data": {
+    "review_id": "r003",
+    "product": "무선 키보드",
+    "review_text": "이 키보드의 색상은 회색이고 연결 방식은 블루투스입니다. 구성품은 키보드와 설명서입니다.",
+    "rating": 3
+  }
+}
