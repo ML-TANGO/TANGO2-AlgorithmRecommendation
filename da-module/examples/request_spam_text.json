@@ -1,0 +1,8 @@
+{
+  "po_request_id": "po-demo-spam-text",
+  "optimized_prompt": "메일 제목과 본문을 보고 스팸이면 spam, 아니면 ham 텍스트 하나만 출력하세요.",
+  "raw_data": {
+    "subject": "[광고] 당첨 축하! 오늘만 무료 경품",
+    "body": "지금 링크를 클릭하고 가입하면 고가의 경품을 드립니다."
+  }
+}

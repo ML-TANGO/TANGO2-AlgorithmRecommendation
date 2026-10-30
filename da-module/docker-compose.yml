@@ -1,0 +1,50 @@
+services:
+  da-module:
+    profiles: ["gpu"]
+    build: .
+    image: da-module:latest
+    env_file: .env
+    ports:
+      - "${DA_PORT:-8002}:8000"
+    volumes:
+      - ${DA_MODELS_DIR:-../prompt-module/models}:/models
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      demo-receiver:
+        condition: service_healthy
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${DA_GPU_ID:-0}"]
+              capabilities: [gpu]
+
+  da-module-mock:
+    profiles: ["mock"]
+    build: .
+    image: da-module:latest
+    env_file: .env
+    environment:
+      DA_BACKEND: mock
+    ports:
+      - "${DA_PORT:-8002}:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      demo-receiver:
+        condition: service_healthy
+
+  demo-receiver:
+    profiles: ["gpu", "mock"]
+    build: .
+    image: da-module:latest
+    command: ["uvicorn", "examples.receiver:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "127.0.0.1:${DA_RECEIVER_PORT:-8003}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 2s
+      timeout: 5s
+      retries: 10

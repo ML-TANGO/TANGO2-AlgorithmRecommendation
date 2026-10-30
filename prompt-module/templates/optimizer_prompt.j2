@@ -1,0 +1,30 @@
+Optimize the prompt below so that an LLM following it achieves the prompt's objective more accurately and consistently.
+
+{% if task_description %}
+# Context
+{% if prompt_objective %}
+- Objective of the prompt: {{ prompt_objective }}
+{% endif %}
+- User task: {{ task_description }}
+- User requirements: {{ requirements }}
+- Data format: {{ data_format }}
+- Data schema:
+{{ data_schema }}
+{% if data_label %}
+- Labels:
+{{ data_label }}
+{% endif %}
+
+{% endif %}
+# Optimization rules
+- Keep the original objective, every requirement, the label set and the output format.
+- Remove ambiguity, redundancy and contradictions; make every instruction specific and verifiable.
+- Keep every placeholder (such as {% raw %}{{input_data}}{% endraw %}) exactly as it is.
+- Keep the original language of the prompt.
+
+# Prompt to optimize
+<prompt>
+{{ initial_prompt }}
+</prompt>
+
+Return only the optimized prompt, wrapped in <prompt> and </prompt> tags.

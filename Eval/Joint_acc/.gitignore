@@ -1,0 +1,13 @@
+.codex/
+__pycache__/
+*.pyc
+
+# 학습 체크포인트와 평가 결과
+out/
+MODEL_EXPERIMENTS.md
+
+# 로컬 conda 환경 전체 덤프 (설치에는 requirements.txt 사용)
+test_requirements.txt
+
+# UGEN 데이터 (README의 git clone으로 받음)
+UGEN/

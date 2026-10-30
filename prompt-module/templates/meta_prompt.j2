@@ -1,0 +1,14 @@
+Write a prompt for an LLM based on the information below.
+
+Objective: {{ prompt_objective }}
+Task: {{ task_description }}
+Requirements: {{ requirements }}
+Data format: {{ data_format }}
+Data schema:
+{{ data_schema }}
+{% if data_label %}
+Labels:
+{{ data_label }}
+{% endif %}
+
+Output only the prompt, wrapped in <prompt> and </prompt>.

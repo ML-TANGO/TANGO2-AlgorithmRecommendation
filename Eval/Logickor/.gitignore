@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+.env
+
+# 어댑터는 Hugging Face에서 받습니다 (README 참고)
+adapters/
+runs/
+models/
+
+# 생성·평가 결과
+generated/
+evaluated/
+artifacts/
+
+# 평가 전용 릴리즈에 포함하지 않는 학습 코드
+train/
+configs/
+scripts/
+requirements/etri-training.txt
